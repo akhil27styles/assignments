@@ -43,7 +43,52 @@
   const bodyParser = require('body-parser');
   
   const app = express();
-  
+  let todos = [];
   app.use(bodyParser.json());
-  
+
+  function getIDMatch(iD){
+    return  todos.find(x=>x.id===parseInt(iD));
+  }
+  app.get('/todos',(req,res)=>{
+    return res.status(200).send(todos);
+  })
+  app.get('/todos/:id',(req,res)=>{
+    const todo=getIDMatch(req.params.id);
+    if(!todo){
+      return res.status(404).send();
+    }
+    return res.status(200).send(todo);
+  })
+  app.post('/todos', (req, res) => {
+    const newTodo = {
+      id: Math.floor(Math.random() * 1000000), // unique random id
+      title: req.body.title,
+      description: req.body.description
+    };
+    todos.push(newTodo);
+    res.status(201).json(newTodo);
+  });
+  app.put('/todos/:id', (req, res) => {
+    const todoIndex = todos.findIndex(t => t.id === parseInt(req.params.id));
+    if (todoIndex === -1) {
+      res.status(404).send();
+    } else {
+      todos[todoIndex].title = req.body.title;
+      todos[todoIndex].description = req.body.description;
+      res.json(todos[todoIndex]);
+    }
+  });
+app.delete('/todos/:id',(req,res)=>{
+  const todoIndex=getIDMatch(req.params.id);
+  if(todoIndex===-1){
+    return res.status(404).send();
+  }
+  else{
+   todos.filter((x)=>x.id!==todoIndex);
+  res.status(200).send();
+  }
+})
+  app.use((req, res, next) => {
+    res.status(404).send();
+  });
   module.exports = app;

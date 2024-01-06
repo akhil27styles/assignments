@@ -4,7 +4,11 @@
  * the function should return a promise just like before
  */
 
-function sleep(milliseconds) {
+function sleep (seconds) {
+return new Promise((resolve)=>{
+    setTimeout(() => {
+    resolve();
+    }, seconds);
+});
 }
-
 module.exports = sleep;

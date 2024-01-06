@@ -11,7 +11,34 @@
 */
 
 class Todo {
-
+    list=[];
+add(todo){
+   this.list.push(todo)  
+}
+remove(index){
+  if(index>=0 && index<this.list.length){
+    this.list.splice(index, 1);
+  }
+}
+update(index, updatedTodo){
+  if(index<this.list.length){
+   this.list[index]=updatedTodo
+  }
+}
+getAll(){
+return this.list;
+}
+get(indexOfTodo){
+  if(indexOfTodo<this.list.length){
+ return this.list[indexOfTodo];
+  }
+  else{
+    return null;
+  }
+}
+clear(){
+  this.list=[]
+}
 }
 
 module.exports = Todo;
