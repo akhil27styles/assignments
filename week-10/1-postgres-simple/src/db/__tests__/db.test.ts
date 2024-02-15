@@ -2,6 +2,7 @@ import { client } from '../..';
 import { createUser, getUser } from '../user';
 import { createTables, dropTables } from '../setup';
 import { createTodo, updateTodo, getTodos } from '../todo';
+import { Todo } from '../Todo.interface';
 
 beforeAll(async () => {
     await client.connect();
@@ -68,7 +69,7 @@ describe('Todo Operations', () => {
   
     test('getTodos retrieves all todos for a user', async () => {
       // Assuming there are already todos created in previous tests
-      const todos = await getTodos(userId);
+      const todos :Todo[]= await getTodos(userId);
   
       expect(todos.length).toBeGreaterThan(0);
       todos.forEach(todo => {
