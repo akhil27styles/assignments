@@ -87,7 +87,7 @@ function createUser(username, password, name) {
     });
 }
 exports.createUser = createUser;
-createUser('john.doe@example.com', 'securepassword123', 'johndoe');
+// createUser('john.doe@example.com', 'securepassword123', 'johndoe');
 /*
  * Should return the User object
  * {
